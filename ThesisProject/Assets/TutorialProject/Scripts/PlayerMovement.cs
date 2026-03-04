@@ -10,10 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementVector;
     [SerializeField] float movementSpeed;
 
+    [SerializeField] private ParticleSystem dustParticles;
+    [SerializeField] private Transform dustTransform;
+
     // Start is called before the first frame update
     void Start()
     {
         characterRB = GetComponent<Rigidbody>();
+        dustParticles.Stop();
     }
 
     // Update is called once per frame
@@ -26,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         characterRB.velocity = (movementVector * Time.fixedDeltaTime * movementSpeed);
+
+        HandleDustParticles();
     }
     private void OnMovement(InputValue input)
     {
@@ -35,5 +41,32 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovementStop(InputValue input)
     {
         movementVector = Vector3.zero;
+    }
+
+    void HandleDustParticles()
+    {
+        if (movementVector.magnitude > 0.1f)
+        {
+            if (!dustParticles.isPlaying)
+            {
+                dustParticles.Play();
+            }
+
+            if (movementInput.z < 0)
+            {
+                dustTransform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                dustTransform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
+        else
+        {
+            if (dustParticles.isPlaying)
+            {
+                dustParticles.Stop();
+            }
+        }
     }
 }

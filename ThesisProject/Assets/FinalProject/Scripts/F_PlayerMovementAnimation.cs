@@ -11,7 +11,6 @@ public class F_PlayerMovementAnimation : MonoBehaviour
 
     void Start()
     {
-      
         animator = GetComponent<Animator>(); // Getting the Animator component attached to the character
     }
 

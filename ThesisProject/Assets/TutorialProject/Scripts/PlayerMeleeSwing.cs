@@ -9,6 +9,7 @@ public class PlayerMeleeSwing : MonoBehaviour
     private F_PlayerMovement playerMovement;
 
     public PlayerWeapon currentWeapon;
+    private AttackCooldown attackCooldown;
     private bool canAttack = true;
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class PlayerMeleeSwing : MonoBehaviour
     {
         playerMovement = GetComponent<F_PlayerMovement>(); // Getting the Rigidbody component attached to the character
         animator = GetComponent<Animator>(); // Getting the Animator component attached to the character
+        attackCooldown = GetComponentInChildren<AttackCooldown>();
         currentWeapon = GetComponentInChildren<PlayerWeapon>();
         currentWeapon.MeshCollider.enabled = false;
     }
@@ -27,6 +29,7 @@ public class PlayerMeleeSwing : MonoBehaviour
             StartCoroutine(DelayColliderActivation());
             canAttack = false;
             StartCoroutine(AttackCooldown());
+            attackCooldown.StartCooldown(currentWeapon.attackSpeed);
         }
     }
 
