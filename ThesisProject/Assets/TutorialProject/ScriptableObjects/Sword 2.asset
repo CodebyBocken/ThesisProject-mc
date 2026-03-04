@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sword2
   weaponMesh: {fileID: 5426684885162492598, guid: 8e583e9185af1be4e9dd6f501e6fe7d4, type: 3}
-  attackSpeed: 10
-  attackPower: 10
+  attackSpeed: 5
+  attackPower: 20
